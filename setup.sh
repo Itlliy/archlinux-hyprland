@@ -18,6 +18,7 @@ prep_stage=(
     cliphist 
     python-requests 
     pacman-contrib
+    xdg-user-dirs
 )
 
 #the main packages
