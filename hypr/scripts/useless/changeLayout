@@ -1,0 +1,26 @@
+#!/bin/bash
+
+LAYOUT=$(hyprctl -j getoption general:layout | jq '.str' | sed 's/"//g')
+
+case $LAYOUT in
+"master")
+	hyprctl keyword general:layout dwindle
+	hyprctl keyword bind SUPER,J
+	hyprctl keyword bind SUPER,K
+	hyprctl keyword unbind SUPER,J,cyclenext
+	hyprctl keyword unbind SUPER,K,cyclenext,prev
+	hyprctl keyword unbind SUPER,O,togglesplit
+  notify-send "Master Layout"
+	;;
+"dwindle")
+	hyprctl keyword general:layout master
+	hyprctl keyword bind SUPER,J
+	hyprctl keyword bind SUPER,K
+	hyprctl keyword bind SUPER,O
+	hyprctl keyword unbind SUPER,J,layoutmsg,cyclenext
+	hyprctl keyword unbind SUPER,K,layoutmsg,cycleprev
+  notify-send "Dwindle Layout"
+	;;
+*) ;;
+
+esac

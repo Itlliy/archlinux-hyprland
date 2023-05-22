@@ -1,0 +1,327 @@
+{
+  // "include": "~/.config/waybar/modules",
+  "layer": "top",
+  // "mode": "dock",
+  "exclusive": true,
+  "passthrough": false,
+  "position": "top",
+  // "spacing": 5,
+  // "height": 50,
+  "fixed-center": true,
+  "ipc": true,
+  "margin-left": 0,
+  "margin-right": 0,
+  "modules-left": ["custom/power", "temperature", "cpu", "memory", "disk", "hyprland/window"],
+  "modules-center": ["idle_inhibitor", "clock"],
+  "modules-right": ["backlight",  "pulseaudio", "pulseaudio#microphone", "battery", "tray", "custom/weather", "custom/keybindings", "wlr/workspaces"],
+
+
+
+
+
+  // Modules
+  "hyprland/window": {
+    "format": "{}"
+  },
+
+  "backlight": {
+    "interval": 2,
+    "align": 0,
+    "rotate": 0,
+      "format": "{icon}",
+      // "format": "{icon} {percent}",
+      "format-icons": ["󰌶", "󰛩", "󱩎", "󱩏", "󱩐", "󱩑", "󱩒", "󱩓", "󱩔", "󱩕", "󱩖", "󰛨"],
+      "on-click": "",
+      "on-click-middle": "",
+      "on-click-right": "",
+      "on-update": "",
+      "on-scroll-up": "~/.config/hypr/scripts/brightness --inc",
+      "on-scroll-down": "~/.config/hypr/scripts/brightness --dec",
+      "smooth-scrolling-threshold": 1,
+    },
+
+  "wlr/workspaces": {
+    "format": "{icon}",
+    "on-click": "activate",
+    "all-outputs": true,
+    "sort-by-number": true,
+    "on-click-right": "~/.config/hypr/scripts/changeWallpaper",
+    "format-icons": {
+      "1": "1",
+      "2": "2",
+      "3": "3",
+      "4": "4",
+      "5": "5",
+      "6": "6",
+      "7": "7",
+      "8": "8",
+      "9": "9",
+      "10": "10",
+    },
+    "on-scroll-up": "hyprctl dispatch workspace e-1",
+    "on-scroll-down": "hyprctl dispatch workspace e+1",
+  },
+	
+  "battery": {
+		// "interval": 60,
+		"align": 0,
+		"rotate": 0,
+		//"bat": "BAT1",
+		//"adapter": "ACAD",
+		"full-at": 100,
+		"design-capacity": false,
+    "states": {
+      "good": 95,
+      "warning": 30,
+      "critical": 15
+    },
+    "format": "{icon}",
+    "format-charging": "{icon}",
+    "format-plugged": "{icon}",
+    "format-full": "󰂅",
+    //"format-good": "",
+    "format-alt": "{icon} {time}",
+    "format-icons": ["󰂎", "󰁺", "󰁻", "󰁼", "󰁽", "󰁾", "󰁿", "󰂀", "󰂁", "󰂂", "󰁹"],
+    "format-time": "{H}h {M}min",
+    "tooltip": true,
+    "on-click-right": "~/.config/hypr/scripts/glassmorphismToggle",
+    "tooltip-format": "{capacity}% {timeTo}",
+  },
+
+//   "battery": {
+//     "states": {
+//         "good": 95,
+//         "warning": 30,
+//         "critical": 20
+//     },
+//     "format": "{icon} {capacity}%",
+//     "format-charging": " {capacity}%",
+//     "format-plugged": " {capacity}%",
+//     // "format-alt": "{time} {icon}",
+//     "format-icons": ["", "", "", "", "", "", "", "", "", "", ""]
+// },
+  "idle_inhibitor": {
+    "format": "{icon}",
+    "format-icons": {
+        "activated": "",
+        "deactivated": ""
+    }
+  },
+  "clock": {
+    "align": 0,
+    "rotate": 0,
+    "format": "{:%a %d/%m %H:%M}",
+    // "format-alt": "{:%a %d/%m %I:%M %p}",
+    "tooltip-format": "<tt><small>{calendar}</small></tt>",
+    // "tooltip-format": "<big>{:%a %d}</big>\n<tt><small>{calendar}</small></tt>",
+    "calendar": {
+      "mode"          : "year",
+      "mode-mon-col"  : 3,
+      "weeks-pos"     : "right",
+      "on-scroll"     : 1,
+      "on-click-right": "mode",
+      "format": {
+                "months":     "<span color='#ffead3'><b>{}</b></span>",
+                "days":       "<span color='#ecc6d9'><b>{}</b></span>",
+                "weeks":      "<span color='#99ffdd'><b>W{}</b></span>",
+                "weekdays":   "<span color='#ffcc66'><b>{}</b></span>",
+                "today":      "<span color='#ff6699'><b><u>{}</u></b></span>"
+                }
+      },
+    "actions":  {
+          "on-click-right": "mode",
+          "on-click-forward": "tz_up",
+          "on-click-backward": "tz_down",
+          "on-scroll-up": "shift_up",
+          "on-scroll-down": "shift_down"
+          }
+},
+
+  // "custom/date": {
+  //   "format": " {}",
+  //   "exec": "date +%d/%m",
+  //   "on-click": "alacritty --class update -T update -o font_size=22 --hold --execute cal -3"
+  // },
+
+  "cpu": {
+    // "interval": 5,
+    // "format": " {usage}%",
+    "interval": 1,
+    "format": "{icon} {usage:>2}%",
+    "font-size": 30,
+    "format-icons": [""],
+    "on-click": "alacritty -o window.startup_mode=Fullscreen --title=btop -e sh -c 'btop'"
+  },
+           
+  // "custom/menu": {
+  //   "format": "",
+  //   "tooltip": false,
+  //   "on-click": "$HOME/.config/hypr/scripts/menu",
+  // },
+
+  "custom/power": {
+    "format": "",
+    // "on-click": "sh -c '(sleep 0.5s; archlinux-logout --protocol layer-shell)' & disown",
+    "on-click": "sh -c '(sleep 0.5s; wlogout --protocol layer-shell)' & disown",
+    "on-click-right": "sh -c '(sleep 0.5s; swaylock)' & disown",
+  },
+
+  "disk": {
+    "interval": 30,
+    "format": " {free}",
+    "on-click": "alacritty -o window.startup_mode=Fullscreen --title=btop -e sh -c 'btop'"
+  },
+
+  "temperature": {
+    "interval": 10,
+    "tooltip": false,
+    "thermal-zone": 0,
+    "critical-threshold": 82,
+    "format": "{icon} {temperatureC}°",
+    "format-critical": "{icon} {temperatureC}°",
+    "format-icons": ["", "", "", "", ""],
+    "on-click": "alacritty -o window.startup_mode=Fullscreen --title=btop -e sh -c 'btop'"
+  },
+
+  "memory": {
+    "interval": 2,
+    "format": " {}%",
+    "on-click": "alacritty -o window.startup_mode=Fullscreen --title=btop -e sh -c 'btop'"
+  },
+  // "network": {
+  //   "format-wifi": "{icon}",
+  //   // "format-wifi": "{icon} {signalStrength}%",
+  //   "format-ethernet": "{ipaddr}/{cidr} ",
+  //   "tooltip-format": "{signalStrength}% {essid} - {ifname} via {gwaddr}",
+  //   "format-linked": " {ifname} (No IP) ",
+  //   "format-disconnected": "睊 Disconnected",
+  //   "format-disabled": "睊 Disabled",
+  //   "format-alt": " {bandwidthUpBits} |  {bandwidthDownBits}",
+  //   "on-click-right": "alacritty --class update -T update -o font_size=22 --hold --execute nmtui",
+  //   "format-icons": {
+  //     "wifi": ["󰤯", "󰤟", "󰤢", "󰤥", "󰤨"]
+  //     },
+  //   },
+  //   "custom/lock_screen": {
+  //     "format": "",
+  //     "on-click": "sh -c '(sleep 0.5s; swaylock)' & disown",
+  //  },
+
+  "custom/weather": {
+    //shows the current weather and forecast
+    "tooltip" : true,
+    "format" : "{}",
+    "interval" : 600,
+    "exec" : "~/.config/hypr/scripts/waybar-wttr.py",
+    "return-type" : "json"
+  },
+  // "custom/weather": {
+  //   "format": "{}",
+  //   "format-alt": "{alt}: {}",
+  //   "format-alt-click": "click-right",
+  //   "interval": 1800,
+  //   "return-type": "json",
+  //   "exec": "~/.config/hypr/scripts/weather.sh",
+  //   "exec-if": "ping wttr.in -c1"
+  // },
+
+  // "custom/updater":{
+  //   "format": " {}",
+  //   "exec": "checkupdates | wc -l",
+  //   "exec-if": "[[ $(checkupdates | wc -l) ]]",
+  //   "interval": 7200,
+  //   "on-click": "alacritty --class update -T update -o font_size=13 -e yay -Syu && notify-send 'The system has been updated' "
+  // },
+
+  // "custom/cycle_wall":{
+  //   "format":"",
+  //   "on-click": "~/.config/hypr/scripts/changeWallpaper",
+  //   "tooltip-format": "Change wallpaper",
+  // },
+
+  "pulseaudio": {
+    "format": "{icon}",
+    // "format": "{icon} {volume}%",
+    "format-muted": "󰖁",
+    "format-bluetooth": " {volume}% {format_source}",
+    "format-bluetooth-muted": " Mute",
+    "format-source": "󰍬 {volume}",
+    "format-source-muted": "󰍭",
+    "format-icons": {
+      "headphone": "",
+      "hands-free": "",
+      "headset": "",
+      "phone": "",
+      "portable": "",
+      "car": "",
+      "default": ["󰕿", "󰖀", "󰕾"]
+      },
+    "scroll-step": 5.0,
+    "on-click": "~/.config/hypr/scripts/volume --toggle",
+    "on-click-right": "pavucontrol",
+    // "on-scroll-up": "pamixer -i 5",
+    // "on-scroll-down": "pamixer -d 5",
+    "on-scroll-up": "pamixer -u && ~/.config/hypr/scripts/volume --inc",
+    "on-scroll-down": "pamixer -u && ~/.config/hypr/scripts/volume --dec",
+    "smooth-scrolling-threshold": 1,
+  },
+  "pulseaudio#microphone": {
+    "format": "{format_source}",
+    "format-source": "󰍬",
+    // "format-source": " {volume}%",
+    "format-source-muted": "󰍭",
+    // "on-click": "pamixer --default-source -t",
+    "on-scroll-up": "pamixer -u --default-source && ~/.config/hypr/scripts/volume --inc-mic",
+    "on-scroll-down": "pamixer -u --default-source && ~/.config/hypr/scripts/volume --dec-mic",
+    "on-click": "~/.config/hypr/scripts/volume --toggle-mic",
+  },
+  "custom/keybindings": {
+  "format":"󰘙",
+  "tooltip": false,
+  "on-click": "~/.config/hypr/scripts/keyhint",
+  },
+
+  "tray": {
+    "icon-size": 16,
+    "spacing": 10,
+  },
+  // "bluetooth": {
+  //   "format": "󰂯",
+  //   // "format": "󰂯 {status}",
+  //   "format-connected": "󰂱 {device_alias}",
+  //   "format-connected-battery": " {device_alias} {device_battery_percentage}%",
+  //   // "format-device-preference": [ "device1", "device2" ], // preference list deciding the displayed device
+  //   "format-disabled": "󰂲",
+  //   "tooltip-format": "{controller_alias}\t{controller_address}\n\n{num_connections} connected",
+  //   "tooltip-format-connected": "{controller_alias}\t{controller_address}\n\n{num_connections} connected\n\n{device_enumerate}",
+  //   "tooltip-format-enumerate-connected": "{device_alias}\t{device_address}",
+  //   "tooltip-format-enumerate-connected-battery": "{device_alias}\t{device_address}\t{device_battery_percentage}%",
+  //   "on-click": "~/.config/hypr/scripts/bluetooth.sh",
+  //   "on-click-right": "blueberry"
+  // },
+  // "custom/screenshot": {
+  //   "format": "󰵝",
+  //   "on-click": "~/.config/waybar/screenshot-area.sh",
+  //   "on-click-middle": "grim $(xdg-user-dir PICTURES)/Screenshots/$(date +'screenshot_%Y%m%d-%H%M%S.png')",
+  //   "on-click-right": "thunar ~/Pictures/Screenshots/"
+  // },
+  //   "hyprland/language": {
+  //     "format": " {}",
+  //     "format-en": "US",
+  //     "format-vi": "VN",
+  //     "keyboard-name": "at-translated-set-2-keyboard",
+  //     "on-click": "~/.config/hypr/scripts/change-keyboard-layout.sh && pkill waybar && waybar",
+  //     "signal": 8
+  // },
+  // "wlr/taskbar": {
+  //   "format": "{icon}",
+  //   "icon-size": 24,
+  //   "all-outputs": true,
+  //   "tooltip-format": "{name} - {title}",
+  //   "on-click": "activate",
+  //   "on-click-middle": "close",
+  //   "ignore-list": [
+  //       "wofi"
+  //   ],
+
+}
