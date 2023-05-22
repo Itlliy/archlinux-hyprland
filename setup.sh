@@ -11,7 +11,8 @@ prep_stage=(
     polkit-gnome 
     pipewire 
     wireplumber 
-    jq 
+    jq
+    wget
     gcc12 
     wl-clipboard 
     cliphist 
@@ -23,7 +24,8 @@ prep_stage=(
 install_stage=(
     alacritty 
     mako 
-    waybar-hyprland 
+    waybar-hyprland
+    swayidle
     swww
     swaylock-effects
     wofi
@@ -35,7 +37,9 @@ install_stage=(
     thunar
     btop
     firefox
+    google-chrome
     mpv
+    cava
     pamixer
     pavucontrol
     brightnessctl
@@ -321,7 +325,13 @@ if [[ $CFG == "Y" || $CFG == "y" ]]; then
     
     # stage the .desktop file
     sudo cp hypr/hyprland.desktop /usr/share/wayland-sessions/
-
+    
+    # Install Megasync
+    wget https://mega.nz/linux/repo/Arch_Extra/x86_64/megasync-x86_64.pkg.tar.zst
+    sudo pacman -U megasync-x86_64.pkg.tar.zst --noconfirm
+    rm -rf megasync-x86_64.pkg.tar.zst
+    
+    
 #     # setup the first look and feel as dark
 #     xfconf-query -c xsettings -p /Net/ThemeName -s "Adwaita-dark"
 #     xfconf-query -c xsettings -p /Net/IconThemeName -s "Papirus-Dark"
