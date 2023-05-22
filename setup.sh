@@ -33,7 +33,7 @@ install_stage=(
     grim
     slurp
     thunar
-    bto
+    btop
     firefox
     mpv
     pamixer
