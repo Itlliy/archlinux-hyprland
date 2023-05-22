@@ -135,12 +135,12 @@ clear
 #     exit
 # fi
 
-# # find the Nvidia GPU
-# if lspci -k | grep -A 2 -E "(VGA|3D)" | grep -iq nvidia; then
-#     ISNVIDIA=true
-# else
-#     ISNVIDIA=false
-# fi
+# find the Nvidia GPU
+if lspci -k | grep -A 2 -E "(VGA|3D)" | grep -iq nvidia; then
+    ISNVIDIA=true
+else
+    ISNVIDIA=false
+fi
 
 # ### Disable wifi powersave mode ###
 # read -rep $'[\e[1;33mACTION\e[0m] - Would you like to disable WiFi powersave? (y,n) ' WIFI
@@ -253,23 +253,23 @@ if [[ $CFG == "Y" || $CFG == "y" ]]; then
     echo -e "$CNT - Copying config files..."
 
     # copy the HyprV directory
-    cp -R HyprV ~/.config/
+    cp -R hypr ~/.config/
 
-    #set the measuring unit
-    echo -e "$CNT - Attempring to set mesuring unit..."
-    if locale -a | grep -q ^en_US; then
-        echo -e "$COK - Setting mesuring system to imperial..."
-        ln -sf ~/.config/HyprV/waybar/conf/mesu-imp.jsonc ~/.config/HyprV/waybar/conf/mesu.jsonc
-        sed -i 's/SET_MESU=""/SET_MESU="I"/' ~/.config/HyprV/hyprv.conf
-    else
-        echo -e "$COK - Setting mesuring system to metric..."
-        sed -i 's/SET_MESU=""/SET_MESU="M"/' ~/.config/HyprV/hyprv.conf
-        ln -sf ~/.config/HyprV/waybar/conf/mesu-met.jsonc ~/.config/HyprV/waybar/conf/mesu.jsonc
-    fi
+#     #set the measuring unit
+#     echo -e "$CNT - Attempring to set mesuring unit..."
+#     if locale -a | grep -q ^en_US; then
+#         echo -e "$COK - Setting mesuring system to imperial..."
+#         ln -sf ~/.config/HyprV/waybar/conf/mesu-imp.jsonc ~/.config/HyprV/waybar/conf/mesu.jsonc
+#         sed -i 's/SET_MESU=""/SET_MESU="I"/' ~/.config/HyprV/hyprv.conf
+#     else
+#         echo -e "$COK - Setting mesuring system to metric..."
+#         sed -i 's/SET_MESU=""/SET_MESU="M"/' ~/.config/HyprV/hyprv.conf
+#         ln -sf ~/.config/HyprV/waybar/conf/mesu-met.jsonc ~/.config/HyprV/waybar/conf/mesu.jsonc
+#     fi
 
     # Setup each appliaction
     # check for existing config folders and backup 
-    for DIR in hypr kitty mako swaylock waybar wlogout wofi 
+    for DIR in hypr alacritty mako swaylock waybar wlogout wofi swappy
     do 
         DIRPATH=~/.config/$DIR
         if [ -d "$DIRPATH" ]; then 
@@ -284,15 +284,14 @@ if [[ $CFG == "Y" || $CFG == "y" ]]; then
 
     # link up the config files
     echo -e "$CNT - Setting up the new config..." 
-    cp ~/.config/HyprV/hypr/* ~/.config/hypr/
-    ln -sf ~/.config/HyprV/kitty/kitty.conf ~/.config/kitty/kitty.conf
-    ln -sf ~/.config/HyprV/mako/conf/config-dark ~/.config/mako/config
-    ln -sf ~/.config/HyprV/swaylock/config ~/.config/swaylock/config
-    ln -sf ~/.config/HyprV/waybar/conf/v4-config.jsonc ~/.config/waybar/config.jsonc
-    ln -sf ~/.config/HyprV/waybar/style/v4-style-dark.css ~/.config/waybar/style.css
-    ln -sf ~/.config/HyprV/wlogout/layout ~/.config/wlogout/layout
-    ln -sf ~/.config/HyprV/wofi/config ~/.config/wofi/config
-    ln -sf ~/.config/HyprV/wofi/style/v4-style-dark.css ~/.config/wofi/style.css
+    ln -sf ~/.config/hypr/alacritty/alacritty.yml ~/.config/alacritty/alacritty.yml
+    ln -sf ~/.config/hypr/mako/config ~/.config/mako/config
+    ln -sf ~/.config/hypr/swappy/config ~/.config/swappy/config
+    ln -sf ~/.config/hypr/swaylock/config ~/.config/swaylock/config
+    ln -sf ~/.config/hypr/waybar/config ~/.config/waybar/config
+    ln -sf ~/.config/hypr/waybar/style.css ~/.config/waybar/style.css
+    ln -sf ~/.config/hypr/wlogout/layout ~/.config/wlogout/layout
+    ln -sf ~/.config/hypr/wofi/* ~/.config/wofi/
 
 
     # add the Nvidia env file to the config (if needed)
@@ -313,6 +312,12 @@ if [[ $CFG == "Y" || $CFG == "y" ]]; then
         echo -e "$CWR - $WLDIR NOT found, creating..."
         sudo mkdir $WLDIR
     fi 
+    
+    # Add alacritty open terminal in thunar
+    echo -e "TerminalEmulator=alacritty" | sudo tee -a ~/.config/xfce4/helpers.rc &>> $INSTLOG
+    
+    # fix message hang out reboot&shutdown
+    echo -e "blacklist pcspkr" | sudo tee -a /etc/modprobe.d/50-blacklist.conf &>> $INSTLOG
     
     # stage the .desktop file
     sudo cp hypr/hyprland.desktop /usr/share/wayland-sessions/
