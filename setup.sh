@@ -308,6 +308,12 @@ if [[ $CFG == "Y" || $CFG == "y" ]]; then
     ln -sf ~/.config/hypr/wofi/* ~/.config/wofi/
     
     ln -sf ~/.config/hypr/xfce4/* ~/.config/xfce4/
+    
+    ln -sf ~/.config/hypr/XCompose ~/.XCompose
+    ln -sf ~/.config/hypr/bashrc ~/.bashrc
+
+    
+    
 
 #     #set the measuring unit
 #     echo -e "$CNT - Attempring to set mesuring unit..."
@@ -352,8 +358,7 @@ if [[ $CFG == "Y" || $CFG == "y" ]]; then
     wget https://mega.nz/linux/repo/Arch_Extra/x86_64/megasync-x86_64.pkg.tar.zst
     sudo pacman -U megasync-x86_64.pkg.tar.zst --noconfirm
     rm -rf megasync-x86_64.pkg.tar.zst
-    
-    
+
 #     # setup the first look and feel as dark
 #     xfconf-query -c xsettings -p /Net/ThemeName -s "Adwaita-dark"
 #     xfconf-query -c xsettings -p /Net/IconThemeName -s "Papirus-Dark"
