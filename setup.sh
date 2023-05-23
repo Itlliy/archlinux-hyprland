@@ -66,6 +66,7 @@ install_stage=(
     thunar-volman
     thunar-archive-plugin
     file-roller
+    gthumb-git
     starship
     ttf-jetbrains-mono-nerd
     noto-fonts-emoji
