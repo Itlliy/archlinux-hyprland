@@ -21,6 +21,15 @@ prep_stage=(
     xdg-user-dirs
 )
 
+#software for nvidia GPU only
+nvidia_stage=(
+    linux-headers 
+    nvidia-dkms 
+    nvidia-settings 
+    libva 
+    libva-nvidia-driver-git
+)
+
 #the main packages
 install_stage=(
     alacritty 
