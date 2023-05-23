@@ -44,7 +44,6 @@ install_stage=(
     swappy
     grim
     slurp
-    thunar
     btop
     firefox
     google-chrome
@@ -53,12 +52,18 @@ install_stage=(
     hyprpicker-git
     pamixer
     pavucontrol
+    cups
+    cups-pdf
+    ntfs-3g
+    system-config-printer
     brightnessctl
     bluez
     bluez-utils
     blueberry-wayland
     network-manager-applet
     gvfs
+    thunar
+    thunar-volman
     thunar-archive-plugin
     file-roller
     starship
