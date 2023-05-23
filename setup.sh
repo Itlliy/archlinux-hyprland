@@ -182,7 +182,6 @@ fi
 if [ ! -f /sbin/yay ]; then  
     echo -en "$CNT - Configuering yay."
     git clone https://aur.archlinux.org/yay.git &>> $INSTLOG
-    sudo chown -R $USER:$USER yay
     cd yay
     makepkg -si --noconfirm &>> ../$INSTLOG &
     show_progress $!
