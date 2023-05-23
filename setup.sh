@@ -260,7 +260,7 @@ if [[ $CFG == "Y" || $CFG == "y" ]]; then
     
     # Setup each appliaction
     # check for existing config folders and backup 
-    for DIR in hypr alacritty cava mako swappy swaylock waybar wlogout wofi
+    for DIR in hypr alacritty cava mako swappy swaylock waybar wlogout wofi xfce4
     do 
         DIRPATH=~/.config/$DIR
         if [ -d "$DIRPATH" ]; then 
@@ -292,6 +292,8 @@ if [[ $CFG == "Y" || $CFG == "y" ]]; then
     ln -sf ~/.config/hypr/wlogout/layout ~/.config/wlogout/layout
     
     ln -sf ~/.config/hypr/wofi/* ~/.config/wofi/
+    
+    ln -sf ~/.config/hypr/xfce4/* ~/.config/xfce4/
 
 #     #set the measuring unit
 #     echo -e "$CNT - Attempring to set mesuring unit..."
@@ -323,10 +325,7 @@ if [[ $CFG == "Y" || $CFG == "y" ]]; then
         echo -e "$CWR - $WLDIR NOT found, creating..."
         sudo mkdir $WLDIR
     fi 
-    
-    # Add alacritty open terminal in thunar
-    echo -e "TerminalEmulator=alacritty" | sudo tee -a ~/.config/xfce4/helpers.rc &>> $INSTLOG
-    
+        
     # fix message hang out reboot&shutdown
     sudo echo -e "blacklist pcspkr" | sudo tee -a /etc/modprobe.d/50-blacklist.conf &>> $INSTLOG
     # for Nvidia
