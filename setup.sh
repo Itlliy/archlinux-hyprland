@@ -256,9 +256,41 @@ fi
 read -rep $'[\e[1;33mACTION\e[0m] - Would you like to copy config files? (y,n) ' CFG
 if [[ $CFG == "Y" || $CFG == "y" ]]; then
     echo -e "$CNT - Copying config files..."
+    
+    # Setup each appliaction
+    # check for existing config folders and backup 
+    for DIR in hypr alacritty cava mako swappy swaylock waybar wlogout wofi
+    do 
+        DIRPATH=~/.config/$DIR
+        if [ -d "$DIRPATH" ]; then 
+            echo -e "$CAT - Config for $DIR located, backing up."
+            mv $DIRPATH $DIRPATH-back &>> $INSTLOG
+            echo -e "$COK - Backed up $DIR to $DIRPATH-back."
+        fi
 
+        # make new empty folders
+        mkdir -p $DIRPATH &>> $INSTLOG
+    done
     # copy the HyprV directory
     cp -R hypr ~/.config/
+    # link up the config files
+    echo -e "$CNT - Setting up the new config..." 
+    ln -sf ~/.config/hypr/alacritty/alacritty.yml ~/.config/alacritty/alacritty.yml
+    
+    ln -sf ~/.config/hypr/cava/config ~/.config/cava/config
+    
+    ln -sf ~/.config/hypr/mako/config ~/.config/mako/config
+    
+    ln -sf ~/.config/hypr/swappy/config ~/.config/swappy/config
+    
+    ln -sf ~/.config/hypr/swaylock/config ~/.config/swaylock/config
+    
+    ln -sf ~/.config/hypr/waybar/config ~/.config/waybar/config
+    ln -sf ~/.config/hypr/waybar/style.css ~/.config/waybar/style.css
+    
+    ln -sf ~/.config/hypr/wlogout/layout ~/.config/wlogout/layout
+    
+    ln -sf ~/.config/hypr/wofi/* ~/.config/wofi/
 
 #     #set the measuring unit
 #     echo -e "$CNT - Attempring to set mesuring unit..."
@@ -271,33 +303,6 @@ if [[ $CFG == "Y" || $CFG == "y" ]]; then
 #         sed -i 's/SET_MESU=""/SET_MESU="M"/' ~/.config/HyprV/hyprv.conf
 #         ln -sf ~/.config/HyprV/waybar/conf/mesu-met.jsonc ~/.config/HyprV/waybar/conf/mesu.jsonc
 #     fi
-
-    # Setup each appliaction
-    # check for existing config folders and backup 
-    for DIR in hypr alacritty mako swaylock waybar wlogout wofi swappy
-    do 
-        DIRPATH=~/.config/$DIR
-        if [ -d "$DIRPATH" ]; then 
-            echo -e "$CAT - Config for $DIR located, backing up."
-            mv $DIRPATH $DIRPATH-back &>> $INSTLOG
-            echo -e "$COK - Backed up $DIR to $DIRPATH-back."
-        fi
-
-        # make new empty folders
-        mkdir -p $DIRPATH &>> $INSTLOG
-    done
-
-    # link up the config files
-    echo -e "$CNT - Setting up the new config..." 
-    ln -sf ~/.config/hypr/alacritty/alacritty.yml ~/.config/alacritty/alacritty.yml
-    ln -sf ~/.config/hypr/mako/config ~/.config/mako/config
-    ln -sf ~/.config/hypr/swappy/config ~/.config/swappy/config
-    ln -sf ~/.config/hypr/swaylock/config ~/.config/swaylock/config
-    ln -sf ~/.config/hypr/waybar/config ~/.config/waybar/config
-    ln -sf ~/.config/hypr/waybar/style.css ~/.config/waybar/style.css
-    ln -sf ~/.config/hypr/wlogout/layout ~/.config/wlogout/layout
-    ln -sf ~/.config/hypr/wofi/* ~/.config/wofi/
-
 
     # add the Nvidia env file to the config (if needed)
     if [[ "$ISNVIDIA" == true ]]; then
