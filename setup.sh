@@ -41,6 +41,7 @@ install_stage=(
     google-chrome
     mpv
     cava
+    hyprpicker-git
     pamixer
     pavucontrol
     brightnessctl
@@ -327,7 +328,9 @@ if [[ $CFG == "Y" || $CFG == "y" ]]; then
     echo -e "TerminalEmulator=alacritty" | sudo tee -a ~/.config/xfce4/helpers.rc &>> $INSTLOG
     
     # fix message hang out reboot&shutdown
-    echo -e "blacklist pcspkr" | sudo tee -a /etc/modprobe.d/50-blacklist.conf &>> $INSTLOG
+    sudo echo -e "blacklist pcspkr" | sudo tee -a /etc/modprobe.d/50-blacklist.conf &>> $INSTLOG
+    # for Nvidia
+#     sudo echo -e "blacklist nouveau" | sudo tee -a /etc/modprobe.d/nouveau.conf &>> $INSTLOG
     
     # stage the .desktop file
     sudo cp hypr/hyprland.desktop /usr/share/wayland-sessions/
