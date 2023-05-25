@@ -76,7 +76,6 @@ install_stage=(
     file-roller
     ntfs-3g
     #-----Bluetooth-----
-    brightnessctl
     bluez
     bluez-utils
     blueberry
