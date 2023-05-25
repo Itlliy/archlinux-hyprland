@@ -99,8 +99,8 @@ install_stage=(
     noto-fonts-emoji
     nwg-look-bin
     # lxappearance
-    # sddm
-    # simplicity-sddm-theme-git
+    sddm
+    simplicity-sddm-theme-git
 )
 
 for str in ${myArray[@]}; do
