@@ -48,7 +48,8 @@ install_stage=(
     #-----Audio-----
     pamixer
     pavucontrol
-    wireplumber
+    #wireplumber
+    pipewire-session-manager
     pipewire
     pipewire-pulse
     pipewire-alsa
@@ -370,7 +371,7 @@ if [[ $CFG == "Y" || $CFG == "y" ]]; then
     echo -e "$CNT - Setting up the login screen."
     sudo mkdir /etc/sddm.conf.d
     echo -e "[Theme]\nCurrent=simplicity" | sudo tee -a /etc/sddm.conf.d/10-theme.conf &>> $INSTLOG
-    sudo sudo cp -r .config/hypr/background.jpg /usr/share/sddm/themes/simplicity/images/background.jpg
+    sudo cp -r .config/hypr/background.jpg /usr/share/sddm/themes/simplicity/images/background.jpg
     WLDIR=/usr/share/wayland-sessions
     if [ -d "$WLDIR" ]; then
         echo -e "$COK - $WLDIR found"
