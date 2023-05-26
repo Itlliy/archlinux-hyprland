@@ -32,8 +32,10 @@ nvidia_stage=(
 install_stage=(
     #-----Compositor
     waybar-hyprland
-    swaylock-effects
-    swww
+    swaylock
+    #swaylock-effects
+    swaybg
+    #swww
     mako 
     swayidle
     wofi
@@ -55,7 +57,7 @@ install_stage=(
     alsa-lib
     alsa-firmware
     mpv
-    cava
+    #cava
     #gstreamer
     #gst-plugins-good
     #gst-plugins-bad
@@ -71,7 +73,7 @@ install_stage=(
     thunar
     thunar-volman
     thunar-archive-plugin
-    thunar-shares-plugin
+    #thunar-shares-plugin
     gvfs
     file-roller
     ntfs-3g
@@ -89,15 +91,15 @@ install_stage=(
     alacritty
     starship
     btop
-    gthumb-git
+    gthumb
     grim
     slurp
     swappy
     brightnessctl
     ttf-jetbrains-mono-nerd
     noto-fonts-emoji
-    nwg-look-bin
-    # lxappearance
+    #nwg-look-bin
+    #lxappearance
     sddm
     simplicity-sddm-theme-git
 )
@@ -291,8 +293,8 @@ if [[ $INST == "Y" || $INST == "y" ]]; then
     sleep 2
     
     # Clean out other portals
-    # echo -e "$CNT - Cleaning out conflicting xdg portals..."
-    # yay -R --noconfirm xdg-desktop-portal-gnome xdg-desktop-portal-gtk &>> $INSTLOG
+    echo -e "$CNT - Cleaning out conflicting xdg portals..."
+    yay -R --noconfirm xdg-desktop-portal-gnome xdg-desktop-portal-gtk &>> $INSTLOG
 fi
 
 ### Copy Config Files ###
