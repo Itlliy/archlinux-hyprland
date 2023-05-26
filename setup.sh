@@ -274,9 +274,10 @@ if [[ $INST == "Y" || $INST == "y" ]]; then
         if yay -Q hyprland &>> /dev/null ; then
             yay -R --noconfirm hyprland &>> $INSTLOG &
         fi
-        install_software hyprland-nvidia
+        install_software hyprland-nvidia-git
     else
-        install_software hyprland
+        # hyprland-git &scroll mouse fix
+        install_software hyprland-git
     fi
 
     #fix needed for waybar-hyprland
