@@ -1,0 +1,20 @@
+#!/bin/bash
+
+DIR=~/.config/hypr/wallpapers
+PICS=($(ls ${DIR}))
+
+RANDOMPICS=${PICS[ $RANDOM % ${#PICS[@]} ]}
+
+
+if [[ $(pidof swaybg) ]]; then
+  pkill swaybg
+fi
+
+swaybg -m fill -i ${DIR}/${RANDOMPICS}
+# notify-send "${RANDOMPICS}"
+
+
+# swww img --transition-type grow --transition-pos top-right --transition-step 5 --transition-fps 60 --transition-duration 2 --transition-bezier 0,.67,1,.01 ${DIR}/${RANDOMPICS}
+
+# --transition-duration 2 --transition-bezier 0,.76,1,-0.01
+# --transition-duration 1 --transition-bezier 0,.76,1,.54
