@@ -17,9 +17,6 @@ prep_stage=(
     python-requests 
     pacman-contrib
     xdg-user-dirs
-    #xorg-server
-    #xorg-apps
-    #xorg-xinit
 )
 
 #software for nvidia GPU only
