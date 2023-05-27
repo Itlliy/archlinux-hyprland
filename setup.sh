@@ -70,11 +70,17 @@ install_stage=(
     cups-pdf
     system-config-printer
     network-manager-applet
-    #----File manager-----
+    #----File manager & Thumbnails-----
     thunar
     thunar-volman
     thunar-archive-plugin
     tumbler
+    ffmpegthumbnailer
+    poppler-glib
+    poppler-qt5
+    #freetype2
+    #libgsf
+    #libopenraw
     #thunar-shares-plugin
     gvfs
     file-roller
