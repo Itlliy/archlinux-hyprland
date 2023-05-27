@@ -14,9 +14,10 @@ prep_stage=(
     gcc12 
     wl-clipboard 
     cliphist 
-    python-requests 
+    python-requests
     pacman-contrib
-    #xorg-server
+    xorg-server
+    xf86-input-libinput
     #xorg-apps
     #xorg-xinit
 )
@@ -123,6 +124,15 @@ install_stage=(
     fcitx5-qt
     fcitx5-unikey
     # fcitx5-configtool
+    #Font korea&china
+    #adobe-source-sans-fonts
+    #awesome-terminal-fonts
+    #noto-fonts
+    #ttf-dejavu
+    ttf-droid
+    ttf-hack
+    ttf-jetbrains-mono-nerd
+    noto-fonts-emoji
     #-----Others-----
     visual-studio-code-bin
     micro
@@ -134,8 +144,6 @@ install_stage=(
     slurp
     swappy
     brightnessctl
-    ttf-jetbrains-mono-nerd
-    noto-fonts-emoji
     nwg-look-bin
     #lxappearance
     sddm-git
@@ -424,6 +432,9 @@ if [[ $CFG == "Y" || $CFG == "y" ]]; then
     echo "options snd-hda-intel dmic_detect=0" | sudo tee -a /etc/modprobe.d/alsa-base.conf &>> $INSTLOG
     echo "blacklist snd_soc_skl" | sudo tee -a /etc/modprobe.d/blacklist.conf &>> $INSTLOG
     #echo "blacklist snd_pcsp" | sudo tee -a /etc/modprobe.d/snd_pcsp.conf &>> $INSTLOG
+
+    #Fix dark theme Chrome
+    echo -e "--force-dark-mode\n--enable-features=WebUIDarkMode" | sudo tee -a ~/.config/chrome-flags.conf
 
     # for Nvidia
 #     sudo echo -e "blacklist nouveau" | sudo tee -a /etc/modprobe.d/nouveau.conf &>> $INSTLOG
