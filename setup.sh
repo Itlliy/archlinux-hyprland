@@ -16,7 +16,9 @@ prep_stage=(
     cliphist 
     python-requests 
     pacman-contrib
-    xdg-user-dirs
+    #xorg-server
+    #xorg-apps
+    #xorg-xinit
 )
 
 #software for nvidia GPU only
@@ -43,6 +45,9 @@ install_stage=(
     xdg-desktop-portal-hyprland
     # hyprpicker-git
     #-----Audio-----
+    mpd
+    mpv
+    cava
     pamixer
     pavucontrol
     #wireplumber
@@ -57,8 +62,6 @@ install_stage=(
     alsa-plugins
     alsa-lib
     alsa-firmware
-    mpv
-    #cava
     #gstreamer
     #gst-plugins-good
     #gst-plugins-bad
@@ -68,12 +71,41 @@ install_stage=(
     #-----Printer-----
     cups
     cups-pdf
+    #cups-filters
+    #ghostscript
+    #gsfonts
+    #gutenprint
     system-config-printer
+    #-----Network-----
+    #avahi
+    #nss-mdns
+    #mobile-broadband-provider-info
+    #modemmanager
+    #networkmanager
     network-manager-applet
+    #networkmanager-openconnect
+    #networkmanager-openvpn
+    #networkmanager-pptp
+    #networkmanager-vpnc
+    #openresolv
+    #rtl8821cu-morrownr-dkms-git
     #----File manager & Thumbnails-----
     thunar
     thunar-volman
     thunar-archive-plugin
+    #thunar-shares-plugin
+    gvfs
+    #gvfs-afc
+    #gvfs-gphoto2
+    #gvfs-mtp
+    #gvfs-nfs
+    #gvfs-smb
+    #mtpfs
+    #udiskie
+    #udisks2
+    xdg-user-dirs
+    file-roller
+    ntfs-3g
     tumbler
     ffmpegthumbnailer
     poppler-glib
@@ -81,10 +113,6 @@ install_stage=(
     #freetype2
     #libgsf
     #libopenraw
-    #thunar-shares-plugin
-    gvfs
-    file-roller
-    ntfs-3g
     #-----Bluetooth-----
     bluez
     bluez-utils
@@ -97,6 +125,7 @@ install_stage=(
     # fcitx5-configtool
     #-----Others-----
     visual-studio-code-bin
+    micro
     alacritty
     starship
     btop
@@ -302,6 +331,11 @@ if [[ $INST == "Y" || $INST == "y" ]]; then
     sudo systemctl enable sddm &>> $INSTLOG
     sleep 2
     
+    # Enable MPD service
+    echo -e "$CNT - Enabling the MPD Service..."
+    sudo systemctl enable mpd &>> $INSTLOG
+    sleep 2
+
     # Clean out other portals
     echo -e "$CNT - Cleaning out conflicting xdg portals..."
     yay -R --noconfirm xdg-desktop-portal-gnome xdg-desktop-portal-gtk &>> $INSTLOG
