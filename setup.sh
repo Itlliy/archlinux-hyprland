@@ -35,8 +35,7 @@ nvidia_stage=(
 install_stage=(
     #-----Compositor
     waybar-hyprland
-    swaylock
-    #swaylock-effects
+    swaylock-effects
     swaybg
     #swww
     mako 
@@ -46,7 +45,6 @@ install_stage=(
     xdg-desktop-portal-hyprland
     # hyprpicker-git
     #-----Audio-----
-    mpd
     mpv
     cava
     pamixer
@@ -392,8 +390,6 @@ if [[ $CFG == "Y" || $CFG == "y" ]]; then
     
     ln -sf ~/.config/hypr/XCompose ~/.XCompose
     ln -sf ~/.config/hypr/bashrc ~/.bashrc
-
-    
     
 
 #     #set the measuring unit
@@ -432,9 +428,18 @@ if [[ $CFG == "Y" || $CFG == "y" ]]; then
     echo "options snd-hda-intel dmic_detect=0" | sudo tee -a /etc/modprobe.d/alsa-base.conf &>> $INSTLOG
     echo "blacklist snd_soc_skl" | sudo tee -a /etc/modprobe.d/blacklist.conf &>> $INSTLOG
     #echo "blacklist snd_pcsp" | sudo tee -a /etc/modprobe.d/snd_pcsp.conf &>> $INSTLOG
+    #Fix Touchpad
+    echo "blacklist elan_i2c" | sudo tee -a /etc/modprobe.d/psmouse.conf &>> $INSTLOG
 
     #Fix dark theme Chrome
     echo -e "--force-dark-mode\n--enable-features=WebUIDarkMode" | sudo tee -a ~/.config/chrome-flags.conf
+
+    #Set open file with micro in Thunar
+    sudo sed -i 's|Exec=micro %F|Exec=alacritty -e "micro"|' /usr/share/applications/micro.desktop
+    sudo sed -i 's|Terminal=true|Terminal=false|' /usr/share/applications/micro.desktop
+    jq '. += {"Alt-q": "Quit"}' ~/.config/micro/bindings.json > temp.json && mv temp.json ~/.config/micro/bindings.json
+
+
 
     # for Nvidia
 #     sudo echo -e "blacklist nouveau" | sudo tee -a /etc/modprobe.d/nouveau.conf &>> $INSTLOG
