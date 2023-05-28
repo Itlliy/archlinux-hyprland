@@ -133,7 +133,7 @@ install_stage=(
     noto-fonts-emoji
     #-----Others-----
     visual-studio-code-bin
-    micro
+    neovim
     alacritty
     starship
     btop
@@ -413,7 +413,7 @@ if [[ $CFG == "Y" || $CFG == "y" ]]; then
     echo -e "$CNT - Setting up the login screen."
     sudo mkdir /etc/sddm.conf.d
     echo -e "[Theme]\nCurrent=simplicity" | sudo tee -a /etc/sddm.conf.d/10-theme.conf &>> $INSTLOG
-    sudo cp -r .config/hypr/background.jpg /usr/share/sddm/themes/simplicity/images/background.jpg
+    sudo cp -r ~/.config/hypr/background.jpg /usr/share/sddm/themes/simplicity/images/background.jpg
     WLDIR=/usr/share/wayland-sessions
     if [ -d "$WLDIR" ]; then
         echo -e "$COK - $WLDIR found"
@@ -422,24 +422,19 @@ if [[ $CFG == "Y" || $CFG == "y" ]]; then
         sudo mkdir $WLDIR
     fi
         
-    #Fix message hang out reboot&shutdown
-    sudo echo -e "blacklist pcspkr" | sudo tee -a /etc/modprobe.d/50-blacklist.conf &>> $INSTLOG
     #Fix Sound
+    yay -Rdd wireplumber --noconfirm && yay -S pipewire-session-manager --noconfirm
     echo "options snd-hda-intel dmic_detect=0" | sudo tee -a /etc/modprobe.d/alsa-base.conf &>> $INSTLOG
     echo "blacklist snd_soc_skl" | sudo tee -a /etc/modprobe.d/blacklist.conf &>> $INSTLOG
-    #echo "blacklist snd_pcsp" | sudo tee -a /etc/modprobe.d/snd_pcsp.conf &>> $INSTLOG
     #Fix Touchpad
     echo "blacklist elan_i2c" | sudo tee -a /etc/modprobe.d/psmouse.conf &>> $INSTLOG
 
     #Fix dark theme Chrome
     echo -e "--force-dark-mode\n--enable-features=WebUIDarkMode" | sudo tee -a ~/.config/chrome-flags.conf
-
-    #Set open file with micro in Thunar
-    sudo sed -i 's|Exec=micro %F|Exec=alacritty -e "micro"|' /usr/share/applications/micro.desktop
-    sudo sed -i 's|Terminal=true|Terminal=false|' /usr/share/applications/micro.desktop
-    jq '. += {"Alt-q": "Quit"}' ~/.config/micro/bindings.json > temp.json && mv temp.json ~/.config/micro/bindings.json
-
-
+    
+    #Set open file with Neovim in Thunar
+    sudo sed -i 's|Exec=nvim %F|Exec=alacritty -e "nvim"|' /usr/share/applications/nvim.desktop
+    sudo sed -i 's|Terminal=true|Terminal=false|' /usr/share/applications/nvim.desktop
 
     # for Nvidia
 #     sudo echo -e "blacklist nouveau" | sudo tee -a /etc/modprobe.d/nouveau.conf &>> $INSTLOG
