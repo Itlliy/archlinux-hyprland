@@ -45,17 +45,17 @@ notify_user_mic() {
 
 # Increase Volume
 inc_volume() {
-	pamixer -i 5 && notify_user
+	pamixer -i 2 && notify_user
 }
 inc_volume_mic() {
-	pamixer --default-source -i 5 && notify_user_mic
+	pamixer --default-source -i 2 && notify_user_mic
 }
 # Decrease Volume
 dec_volume() {
-	pamixer -d 5 && notify_user
+	pamixer -d 2 && notify_user
 }
 dec_volume_mic() {
-	pamixer --default-source -d 5 && notify_user_mic
+	pamixer --default-source -d 2 && notify_user_mic
 }
 
 # Toggle Mute

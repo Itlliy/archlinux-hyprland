@@ -15,7 +15,7 @@
   "margin-right": 0,
   "modules-left": ["custom/power", "temperature", "cpu", "memory", "disk", "hyprland/window"],
   "modules-center": ["idle_inhibitor", "clock"],
-  "modules-right": ["backlight",  "pulseaudio", "pulseaudio#microphone", "battery", "tray", "custom/weather", "custom/keybindings", "wlr/workspaces"],
+  "modules-right": ["custom/media", "backlight",  "pulseaudio", "pulseaudio#microphone", "battery", "tray", "custom/weather", "custom/keybindings", "wlr/workspaces"],
 
 
 
@@ -23,7 +23,9 @@
 
   // Modules
   "hyprland/window": {
-    "format": "{}"
+    "format": "{}",
+    "max-length":50,
+    "separate-outputs": true
   },
 
   "backlight": {
@@ -325,5 +327,18 @@
   //   "ignore-list": [
   //       "wofi"
   //   ],
+  "custom/media": {
+    "format": "{icon}{}",
+    "return-type": "json",
+    "format-icons": {
+        "Playing": " ",
+        "Paused": " ",
+    },
+    "max-length":50,
+    "exec": "playerctl -a metadata --format '{\"text\": \"{{title}} - {{markup_escape(artist)}}\", \"tooltip\": \"{{playerName}} : {{markup_escape(title)}}\", \"alt\": \"{{status}}\", \"class\": \"{{status}}\"}' -F",
+    "on-click": "~/.config/hypr/scripts/play-pause.sh",
+    "on-scroll-down": "echo playlist-next | socat - \"$HOME/.config/mpv/socket\"",
+    "on-scroll-up": "echo playlist-prev | socat - \"$HOME/.config/mpv/socket\"",
 
+}
 }

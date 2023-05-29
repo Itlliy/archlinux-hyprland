@@ -109,11 +109,13 @@ CONFIG="$HOME/.config/wofi/config"
 STYLE="$HOME/.config/wofi/style.css"
 COLORS="$HOME/.config/wofi/colors"
 
-wofi_command="wofi --show dmenu \
-            --conf ${CONFIG} --style ${STYLE} --color ${COLORS} \
-            --width=350 --height=380 \
-            --cache-file=/dev/null \
-            --hide-scroll --no-actions"
+# wofi_command="wofi --show dmenu \
+#             --conf ${CONFIG} --style ${STYLE} --color ${COLORS} \
+#             --width=350 --height=380 \
+#             --cache-file=/dev/null \
+#             --hide-scroll --no-actions" 
+
+wofi_command="rofi -dmenu -i -p "Media:" -theme ~/.config/rofi/launchers/type-2/style-1 -fuzzy" 
 
 notification() {
   notify-send "Now Playing: $choice"
@@ -170,7 +172,7 @@ main() {
       # Play the selected music file
       notification
       # mpv "$folder_path/$choice" --no-audio-display --loop-file
-      mpv --no-audio-display --loop-playlist "$folder_path/$choice"
+      mpv --no-audio-display --loop-playlist --loop-file "$folder_path/$choice"
     else
       # No music file selected
       notify-send "No music file selected."

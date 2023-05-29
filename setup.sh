@@ -135,7 +135,7 @@ install_stage=(
     visual-studio-code-bin
     neovim
     alacritty
-    starship
+    zsh
     btop
     gthumb
     grim
@@ -353,7 +353,7 @@ if [[ $CFG == "Y" || $CFG == "y" ]]; then
     echo -e "$CNT - Copying config files..."
     
     # check for existing config folders and backup 
-    for DIR in hypr alacritty cava mako swappy swaylock waybar wlogout wofi xfce4
+    for DIR in hypr alacritty cava mako mpv swappy swaylock waybar wlogout wofi xfce4
     do 
         DIRPATH=~/.config/$DIR
         if [ -d "$DIRPATH" ]; then 
@@ -369,11 +369,14 @@ if [[ $CFG == "Y" || $CFG == "y" ]]; then
     cp -R hypr ~/.config/
     # link up the config files
     echo -e "$CNT - Setting up the new config..." 
-    ln -sf ~/.config/hypr/alacritty/alacritty.yml ~/.config/alacritty/alacritty.yml
+    ln -sf ~/.config/hypr/alacritty/* ~/.config/alacritty/
     
     ln -sf ~/.config/hypr/cava/config ~/.config/cava/config
     
     ln -sf ~/.config/hypr/mako/config ~/.config/mako/config
+
+    ln -sf ~/.config/hypr/mpv/mpv.conf ~/.config/mpv/mpv.conf
+    ln -sf ~/.config/hypr/mpv/scripts ~/.config/mpv/scripts
     
     ln -sf ~/.config/hypr/swappy/config ~/.config/swappy/config
     
